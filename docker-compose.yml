@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+
+    #Service Discovery - Spring Boot Eureka
+    discovery:
+        build:
+            context: ./discovery
+            dockerfile: Dockerfile.yml
+        container_name: discovery
+        environment:
+          - ENV_PORT=8761
+          - ENV_HOST=discovery
+        ports:
+          - '8761:8761'
