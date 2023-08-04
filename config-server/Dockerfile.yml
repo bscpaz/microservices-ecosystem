@@ -1,0 +1,26 @@
+# Stage 1: Build the application
+FROM adoptopenjdk/maven-openjdk11 AS build
+
+WORKDIR /var/www/app
+
+# Copy only the pom.xml and build the dependencies to leverage Docker caching
+# Build the application
+COPY ./pom.xml ./
+COPY ./src ./src
+
+RUN mvn clean package -DskipTests
+
+# Stage 2: Create the final container
+FROM adoptopenjdk/openjdk11:alpine
+
+WORKDIR /var/www/app
+
+RUN addgroup -S spring && adduser -S spring -G spring
+
+# Copy the built JAR from the previous stage
+COPY --from=build /var/www/app/target/*.jar /var/www/app/config-server.jar
+RUN mkdir -p /var/www/config && chown -R spring:spring /var/www
+
+USER spring:spring
+
+ENTRYPOINT ["java","-jar","/var/www/app/config-server.jar"]

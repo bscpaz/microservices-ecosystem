@@ -2,14 +2,35 @@ version: '3.8'
 
 services:
 
-    #Service Discovery - Spring Boot Eureka
-    discovery:
-        build:
-            context: ./discovery
-            dockerfile: Dockerfile.yml
-        container_name: discovery
-        environment:
-          - ENV_PORT=8761
-          - ENV_HOST=discovery
-        ports:
-          - '8761:8761'
+  #Configure Service - Spring Boot Eureka
+  config-server:
+    container_name: config-server
+    build:
+      context: ./config-server
+      dockerfile: Dockerfile.yml
+    ports:
+      - "8888:8888"
+    networks:
+      - app-network
+    volumes:
+      - ./config-server/config-files:/var/www/config
+
+  #Discovery Service - Spring Boot Eureka
+  discovery:
+    container_name: discovery
+    build:
+        context: ./discovery
+        dockerfile: Dockerfile.yml
+    environment:
+      - ENV_PORT=8761
+      - ENV_HOST=discovery
+    ports:
+      - '8761:8761'
+    networks:
+      - app-network
+    depends_on:
+      - config-server
+
+networks:
+  app-network:
+    driver: bridge
