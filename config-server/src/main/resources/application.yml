@@ -11,3 +11,10 @@ spring:
       server:
         native:
           search-location: /opt/app/conf
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${ENV_DISCOVERY_SERVER}:${ENV_DISCOVERY_PORT}/eureka/

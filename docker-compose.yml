@@ -8,6 +8,9 @@ services:
     build:
       context: ./config-server
       dockerfile: Dockerfile.yml
+    environment:
+      - ENV_DISCOVERY_PORT=8761
+      - ENV_DISCOVERY_SERVER=discovery
     ports:
       - "8888:8888"
     networks:
