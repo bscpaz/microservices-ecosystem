@@ -1,9 +1,9 @@
 server:
-  port: ${ENV_PORT:8888}
+  port: ${ENV_HOST_PORT:8888}
 
 spring:
   application:
-    name: 'config-server'
+    name: config-server
   profiles:
     active: native
   cloud:
@@ -11,10 +11,10 @@ spring:
       server:
         native:
           search-location: /opt/app/conf
-
+  
 eureka:
   client:
-    register-with-eureka: true
-    fetch-registry: true
     service-url:
       defaultZone: http://${ENV_DISCOVERY_SERVER}:${ENV_DISCOVERY_PORT}/eureka/
+#  instance:
+#    instance-id: ${spring.application.name}:${random.int}
