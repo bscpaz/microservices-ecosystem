@@ -1,4 +1,4 @@
-package br.com.bscpaz.dicovery;
+package br.com.bscpaz.discovery;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,7 +6,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 @SpringBootApplication
 @EnableEurekaServer
-public class DicoveryApplication {
+public class DiscoveryApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DicoveryApplication.class, args);
