@@ -1,3 +1,6 @@
-/postgresql/data.sql
-/postgresql/data
-/postgresql/.env
+postgresql/data.sql
+postgresql/data
+postgresql/.env
+
+.idea
+desafio-ms/.mvn
