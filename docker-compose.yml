@@ -2,6 +2,21 @@ version: '3.8'
 
 services:
 
+  postgres:
+    container_name: desafio_db
+    image: postgres:15.2
+    user: postgres
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    env_file:
+      - .postgresql/.env
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "5433:5432"
+    networks:
+      - app-network
+
   #Discovery Service - Spring Boot Eureka
   discovery:
     container_name: discovery
