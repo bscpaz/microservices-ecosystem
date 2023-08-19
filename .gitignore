@@ -2,5 +2,8 @@ postgresql/data.sql
 postgresql/data
 postgresql/.env
 
+postgresql-poc/data
+postgresql-poc/.env
+
 .idea
 desafio-ms/.mvn
