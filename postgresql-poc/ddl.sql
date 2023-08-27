@@ -9,6 +9,7 @@ CREATE SEQUENCE public.sq_tb_churrasqueira
 CREATE TABLE public.tb_churrasqueira (
 	id_churrasqueira int4 NOT NULL DEFAULT nextval('sq_tb_churrasqueira'::regclass),
 	ds_setor varchar(20) NOT NULL,
+	id_ultima_reserva int4 NULL,
 	CONSTRAINT tb_sq_tb_churrasqueira_pkey PRIMARY KEY (id_churrasqueira)
 );
 
@@ -28,3 +29,6 @@ CREATE TABLE public.tb_reserva (
 	CONSTRAINT fk_tb_churrasqueira FOREIGN KEY(id_churrasqueira)
 		REFERENCES public.tb_churrasqueira(id_churrasqueira)
 );
+
+ALTER TABLE public.tb_churrasqueira ADD CONSTRAINT fk_tb_reserva FOREIGN KEY(id_ultima_reserva)
+	REFERENCES public.tb_reserva(id_reserva);

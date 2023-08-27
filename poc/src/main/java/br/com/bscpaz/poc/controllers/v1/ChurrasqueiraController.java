@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
         produces = MediaType.APPLICATION_JSON_VALUE)
 public class ChurrasqueiraController {
 
-    public final static String PATH = "/transaction";
+    public final static String PATH = "/transactions";
 
     @Autowired
     private ChurrasqueiraService service;
 
-    @GetMapping
+    @GetMapping("/requires-new")
     public void getRequiresNew(){
         service.findAll();
     }

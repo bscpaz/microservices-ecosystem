@@ -1,4 +1,4 @@
-package br.com.bscpaz.desafioms;
+package br.com.bscpaz.desafio;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

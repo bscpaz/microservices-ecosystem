@@ -1,0 +1,21 @@
+<div class="text-center mt-3 mb-3">
+    <form>
+        <input
+            #search
+            class="rounded"
+            type="search"
+            size="70"
+            placeholder="Digite palavras-chaves"
+            (keyup)="debounce.next(search.value)"
+            autofocus/>
+    </form>
+</div>
+<ol class="list-group-item row">
+    <li *ngFor="let desafio of desafios">
+        <ap-desafio
+            [pergunta]="desafio.pergunta"
+            [resposta]="desafio.resposta">
+        </ap-desafio>
+    </li>
+</ol>
+
