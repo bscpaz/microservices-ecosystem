@@ -1,10 +1,12 @@
 package br.com.bscpaz.desafio.adapters.primary.v1.http.controllers;
 
 import br.com.bscpaz.desafio.adapters.primary.v1.http.dtos.DesafioDto;
+import br.com.bscpaz.desafio.adapters.primary.v1.http.dtos.ResponseDto;
 import br.com.bscpaz.desafio.domain.entities.Desafio;
 import br.com.bscpaz.desafio.domain.services.DesafioService;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,15 +19,23 @@ public class DesafioController {
     private DesafioService desafioService;
 
     @GetMapping
-    public List<DesafioDto> listarTodos() {
-        List<Desafio> desafios = desafioService.findAll();
-        return DesafioDto.domainsToDtos(desafios);
+    public ResponseDto<List<DesafioDto>> listarTodos() {
+        try {
+            List<Desafio> desafios = desafioService.findAll();
+            return new ResponseDto<>(DesafioDto.domainsToDtos(desafios), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseDto<>(HttpStatus.BAD_REQUEST, "Erro ao listar todos.");
+        }
     }
 
     @PostMapping
-    public DesafioDto cadastrar(@RequestBody DesafioDto desafioDto) {
-        Desafio desafio = DesafioDto.dtoToDomain(desafioDto);
-        desafio = desafioService.save(desafio);
-        return DesafioDto.domainToDto(desafio);
+    public ResponseDto<DesafioDto> cadastrar(@RequestBody DesafioDto desafioDto) {
+        try {
+            Desafio desafio = DesafioDto.dtoToDomain(desafioDto);
+            desafio = desafioService.save(desafio);
+            return new ResponseDto<>(DesafioDto.domainToDto(desafio), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseDto<>(desafioDto, HttpStatus.BAD_REQUEST);
+        }
     }
 }
