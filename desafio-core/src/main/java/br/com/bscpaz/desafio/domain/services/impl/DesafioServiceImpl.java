@@ -23,4 +23,13 @@ public class DesafioServiceImpl implements DesafioService {
     public List<Desafio> findAll() {
         return desafioRepository.findAll();
     }
+
+    @Override
+    public List<Desafio> findByPalavrasChave(final String palavrasChave) {
+        if (palavrasChave == null || palavrasChave.trim().isEmpty()) {
+            throw new IllegalArgumentException("A palavras-chave não pode ser nula ou vazia");
+        }
+        String palavrasChaveSearch = palavrasChave.replaceAll(" ", "%");
+        return desafioRepository.findByPalavrasChave("%" + palavrasChaveSearch + "%");
+    }
 }

@@ -10,4 +10,6 @@ public interface DesafioRepository {
     Desafio save(Desafio desafio);
 
     List<Desafio> findAll();
+
+    List<Desafio> findByPalavrasChave(String palavrasChave);
 }

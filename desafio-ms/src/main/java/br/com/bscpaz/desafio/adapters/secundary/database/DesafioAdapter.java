@@ -26,4 +26,10 @@ public class DesafioAdapter implements DesafioRepository {
         List<DesafioEntity> desafiosEntities = desafioJpaRepository.findAll();
         return DesafioEntity.entitiesToDomains(desafiosEntities);
     }
+
+    @Override
+    public List<Desafio> findByPalavrasChave(String palavrasChave) {
+        List<DesafioEntity> desafiosEntities = desafioJpaRepository.findByPalavrasChaves(palavrasChave);
+        return DesafioEntity.entitiesToDomains(desafiosEntities);
+    }
 }

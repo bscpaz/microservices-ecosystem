@@ -16,8 +16,7 @@ public class DesafioOrchestratorImpl implements DesafioOrchestrator {
     }
 
     @Override
-    public List<Desafio> findByPalavraChave(String palavraChave) throws NegocioException {
-        //FIXME: change it!
-        return desafioService.findAll();
+    public List<Desafio> findByPalavraChave(String palavrasChave) throws NegocioException {
+        return desafioService.findByPalavrasChave(palavrasChave);
     }
 }

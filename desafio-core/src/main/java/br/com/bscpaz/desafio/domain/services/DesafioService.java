@@ -9,4 +9,7 @@ public interface DesafioService {
     Desafio save(Desafio desafio);
 
     List<Desafio> findAll();
+
+    List<Desafio> findByPalavrasChave(String palavrasChave);
+
 }
