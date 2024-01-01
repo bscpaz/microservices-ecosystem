@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Desafio } from './desafio/desafio';
+import { ResponseDto } from '../dtos/response-dto';
+import { map } from 'rxjs';
 
 const API = "http://localhost:8082/"
 
@@ -15,6 +17,7 @@ export class DesafioService {
 
   searchByPergunta(pergunta: string) {
     console.log("Enviando " + pergunta);
-    return this.http.get<Desafio[]>(API + "desafios/" + pergunta);
+    const ResponseDto = this.http.get<ResponseDto<Array<Desafio>>>(API + "desafios/" + pergunta);
+    return ResponseDto.pipe(map(response => response.result));
   }
 }

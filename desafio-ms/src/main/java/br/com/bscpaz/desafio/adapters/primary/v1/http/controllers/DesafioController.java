@@ -3,19 +3,24 @@ package br.com.bscpaz.desafio.adapters.primary.v1.http.controllers;
 import br.com.bscpaz.desafio.adapters.primary.v1.http.dtos.DesafioDto;
 import br.com.bscpaz.desafio.adapters.primary.v1.http.dtos.ResponseDto;
 import br.com.bscpaz.desafio.application.ports.DesafioOrchestrator;
+import br.com.bscpaz.desafio.config.ApiVersions;
 import br.com.bscpaz.desafio.domain.entities.Desafio;
 import br.com.bscpaz.desafio.domain.services.DesafioService;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/desafios")
+@RequestMapping(path = ApiVersions.V1 + DesafioController.PATH,
+        produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 public class DesafioController {
+
+    public final static String PATH = "/desafios";
 
     private DesafioService desafioService;
     private DesafioOrchestrator desafioOrchestrator;
