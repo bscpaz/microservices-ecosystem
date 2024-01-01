@@ -17,7 +17,7 @@ export class DesafioService {
 
   searchByPergunta(pergunta: string) {
     console.log("Enviando " + pergunta);
-    const ResponseDto = this.http.get<ResponseDto<Array<Desafio>>>(API + "desafios/" + pergunta);
+    const ResponseDto = this.http.get<ResponseDto<Array<Desafio>>>(API + "api/v1/desafios/" + pergunta);
     return ResponseDto.pipe(map(response => response.result));
   }
 }
