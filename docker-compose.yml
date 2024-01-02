@@ -17,67 +17,80 @@ services:
     networks:
       - app-network
 
-  postgres-poc:
-    container_name: poc_db
-    image: postgres:15.2
-    user: postgres
-    volumes:
-      - ./postgresql-poc/data:/var/lib/postgresql/data
-    env_file:
-      - ./postgresql-poc/.env
-    environment:
-      - PGDATA=/var/lib/postgresql/data/pgdata
+  desafio-front:
+    container_name: desafio_front
+    build:
+      context: ./desafio-front
+      dockerfile: Dockerfile
     ports:
-      - "5434:5432"
+      - "4200:80"
     networks:
       - app-network
+    depends_on:
+      - postgres
+
+
+  # postgres-poc:
+  #   container_name: poc_db
+  #   image: postgres:15.2
+  #   user: postgres
+  #   volumes:
+  #     - ./postgresql-poc/data:/var/lib/postgresql/data
+  #   env_file:
+  #     - ./postgresql-poc/.env
+  #   environment:
+  #     - PGDATA=/var/lib/postgresql/data/pgdata
+  #   ports:
+  #     - "5434:5432"
+  #   networks:
+  #     - app-network
 
   #Discovery Service - Spring Boot Eureka
-  discovery:
-    container_name: discovery
-    build:
-      context: ./discovery
-      dockerfile: Dockerfile
-    ports:
-      - '8761:8761'
-    environment:
-      - ENV_HOST_PORT=8761
-      - ENV_HOST_NAME=discovery
-    networks:
-      - app-network
+  # discovery:
+  #   container_name: discovery
+  #   build:
+  #     context: ./discovery
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '8761:8761'
+  #   environment:
+  #     - ENV_HOST_PORT=8761
+  #     - ENV_HOST_NAME=discovery
+  #   networks:
+  #     - app-network
 
   #Configure Service - Spring Boot Eureka
-  config-server:
-    container_name: config-server
-    build:
-      context: ./config-server
-      dockerfile: Dockerfile
-    environment:
-      - ENV_HOST_PORT=8888    
-      - ENV_DISCOVERY_PORT=8761
-      - ENV_DISCOVERY_SERVER=discovery
-    networks:
-      - app-network
-    volumes:
-      - ./config-server/config-files:/opt/api/config
-    depends_on:
-      - discovery 
+  # config-server:
+  #   container_name: config-server
+  #   build:
+  #     context: ./config-server
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - ENV_HOST_PORT=8888    
+  #     - ENV_DISCOVERY_PORT=8761
+  #     - ENV_DISCOVERY_SERVER=discovery
+  #   networks:
+  #     - app-network
+  #   volumes:
+  #     - ./config-server/config-files:/opt/api/config
+  #   depends_on:
+  #     - discovery 
 
-  gateway:
-    container_name: gateway
-    build:
-      context: ./gateway
-      dockerfile: Dockerfile
-    ports:
-      - '8181:8181'
-    environment:
-      - ENV_HOST_PORT=8181
-      - ENV_DISCOVERY_PORT=8761
-      - ENV_DISCOVERY_SERVER=discovery
-    networks:
-      - app-network
-    depends_on:
-      - discovery
+  # gateway:
+  #   container_name: gateway
+  #   build:
+  #     context: ./gateway
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '8181:8181'
+  #   environment:
+  #     - ENV_HOST_PORT=8181
+  #     - ENV_DISCOVERY_PORT=8761
+  #     - ENV_DISCOVERY_SERVER=discovery
+  #   networks:
+  #     - app-network
+  #   depends_on:
+  #     - discovery
 
 networks:
   app-network:

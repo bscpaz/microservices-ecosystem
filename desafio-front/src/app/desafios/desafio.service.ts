@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Desafio } from './desafio/desafio';
-import { ResponseDto } from '../dtos/response-dto';
+import { ResponseDto } from '../shared/common/dtos/response-dto';
+import { environment } from 'src/environments/environment';
+
 import { map } from 'rxjs';
 
-const API = "http://localhost:8082/"
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class DesafioService {
 
   searchByPergunta(pergunta: string) {
     console.log("Enviando " + pergunta);
-    const ResponseDto = this.http.get<ResponseDto<Array<Desafio>>>(API + "api/v1/desafios/" + pergunta);
+    const ResponseDto = this.http.get<ResponseDto<Array<Desafio>>>(environment.apis.apiUrl + "api/v1/desafios/" + pergunta);
     return ResponseDto.pipe(map(response => response.result));
   }
 }
