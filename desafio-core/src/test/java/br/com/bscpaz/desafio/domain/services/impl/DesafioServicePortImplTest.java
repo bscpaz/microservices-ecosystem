@@ -1,14 +1,14 @@
 package br.com.bscpaz.desafio.domain.services.impl;
 
 import br.com.bscpaz.desafio.domain.entities.Desafio;
-import br.com.bscpaz.desafio.domain.ports.DesafioRepository;
+import br.com.bscpaz.desafio.domain.ports.DesafioRepositoryPort;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DesafioServiceImplTest extends TestCase {
+public class DesafioServicePortImplTest extends TestCase {
 
     private static Desafio getDesafioJackBauer() {
         Desafio desafio = new Desafio();
@@ -28,19 +28,11 @@ public class DesafioServiceImplTest extends TestCase {
         return desafio;
     }
 
-    private static class DesafioRepositoryMock implements DesafioRepository {
+    private static class DesafioRepositoryPortMock implements DesafioRepositoryPort {
         @Override
         public Desafio save(Desafio desafio) {
             desafio.setId(100L);
             return desafio;
-        }
-
-        @Override
-        public List<Desafio> findAll() {
-            List<Desafio> desafios = new ArrayList<>();
-            desafios.add(getDesafioJackBauer());
-            desafios.add(getDesafioNinaMyers());
-            return desafios;
         }
 
         @Override
@@ -55,8 +47,8 @@ public class DesafioServiceImplTest extends TestCase {
     }
 
     public void test_check_null_argument() {
-        DesafioRepository desafioRepositoryMock = new DesafioRepositoryMock();
-        DesafioServiceImpl desafioService = new DesafioServiceImpl(desafioRepositoryMock);
+        DesafioRepositoryPort desafioRepositoryPortMock = new DesafioRepositoryPortMock();
+        DesafioServicePortImpl desafioService = new DesafioServicePortImpl(desafioRepositoryPortMock);
 
         try {
             desafioService.findByPalavrasChave(null);
@@ -67,8 +59,8 @@ public class DesafioServiceImplTest extends TestCase {
     }
 
     public void test_check_empty_argument() {
-        DesafioRepository desafioRepositoryMock = new DesafioRepositoryMock();
-        DesafioServiceImpl desafioService = new DesafioServiceImpl(desafioRepositoryMock);
+        DesafioRepositoryPort desafioRepositoryPortMock = new DesafioRepositoryPortMock();
+        DesafioServicePortImpl desafioService = new DesafioServicePortImpl(desafioRepositoryPortMock);
 
         try {
             desafioService.findByPalavrasChave("");
@@ -79,8 +71,8 @@ public class DesafioServiceImplTest extends TestCase {
     }
 
     public void test_check_whitespaces_argument() {
-        DesafioRepository desafioRepositoryMock = new DesafioRepositoryMock();
-        DesafioServiceImpl desafioService = new DesafioServiceImpl(desafioRepositoryMock);
+        DesafioRepositoryPort desafioRepositoryPortMock = new DesafioRepositoryPortMock();
+        DesafioServicePortImpl desafioService = new DesafioServicePortImpl(desafioRepositoryPortMock);
 
         try {
             desafioService.findByPalavrasChave("  ");
@@ -91,8 +83,8 @@ public class DesafioServiceImplTest extends TestCase {
     }
 
     public void test_check_find_desafio() {
-        DesafioRepository desafioRepositoryMock = new DesafioRepositoryMock();
-        DesafioServiceImpl desafioService = new DesafioServiceImpl(desafioRepositoryMock);
+        DesafioRepositoryPort desafioRepositoryPortMock = new DesafioRepositoryPortMock();
+        DesafioServicePortImpl desafioService = new DesafioServicePortImpl(desafioRepositoryPortMock);
 
         List<Desafio> result = desafioService.findByPalavrasChave("Jack Bauer");
 
@@ -101,8 +93,8 @@ public class DesafioServiceImplTest extends TestCase {
     }
 
     public void test_check_nomatch_find() {
-        DesafioRepository desafioRepositoryMock = new DesafioRepositoryMock();
-        DesafioServiceImpl desafioService = new DesafioServiceImpl(desafioRepositoryMock);
+        DesafioRepositoryPort desafioRepositoryPortMock = new DesafioRepositoryPortMock();
+        DesafioServicePortImpl desafioService = new DesafioServicePortImpl(desafioRepositoryPortMock);
 
         List<Desafio> result = desafioService.findByPalavrasChave("Tony Almeida");
 

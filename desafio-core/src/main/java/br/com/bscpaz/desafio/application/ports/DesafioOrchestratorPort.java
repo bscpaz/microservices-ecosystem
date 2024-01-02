@@ -5,7 +5,7 @@ import br.com.bscpaz.desafio.domain.entities.Desafio;
 
 import java.util.List;
 
-public interface DesafioOrchestrator {
+public interface DesafioOrchestratorPort {
 
     List<Desafio> findByPalavraChave(String palavraChave) throws NegocioException;
 

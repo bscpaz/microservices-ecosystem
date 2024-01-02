@@ -1,8 +1,8 @@
 package br.com.bscpaz.desafio.config;
 
 import br.com.bscpaz.desafio.adapters.secundary.database.DesafioAdapter;
-import br.com.bscpaz.desafio.application.ports.DesafioOrchestrator;
-import br.com.bscpaz.desafio.domain.services.DesafioService;
+import br.com.bscpaz.desafio.application.ports.DesafioOrchestratorPort;
+import br.com.bscpaz.desafio.domain.services.DesafioServicePort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Configuration;
 public class AutowiredConfig {
 
     @Bean
-    public DesafioService createDesafioService(DesafioAdapter desafioAdapter) {
+    public DesafioServicePort createDesafioService(DesafioAdapter desafioAdapter) {
         return DesafioBuilder.getDesafioService(desafioAdapter);
     }
 
     @Bean
-    public DesafioOrchestrator createDesafioOrchestratore(DesafioAdapter desafioAdapter) {
+    public DesafioOrchestratorPort createDesafioOrchestratore(DesafioAdapter desafioAdapter) {
         return DesafioBuilder.getDesafioOrchestrator(desafioAdapter);
     }
 }

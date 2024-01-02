@@ -1,20 +1,20 @@
 package br.com.bscpaz.desafio.config;
 
-import br.com.bscpaz.desafio.application.ports.DesafioOrchestrator;
-import br.com.bscpaz.desafio.application.ports.impl.DesafioOrchestratorImpl;
-import br.com.bscpaz.desafio.domain.ports.DesafioRepository;
-import br.com.bscpaz.desafio.domain.services.DesafioService;
-import br.com.bscpaz.desafio.domain.services.impl.DesafioServiceImpl;
+import br.com.bscpaz.desafio.application.ports.DesafioOrchestratorPort;
+import br.com.bscpaz.desafio.application.ports.impl.DesafioOrchestratorPortImpl;
+import br.com.bscpaz.desafio.domain.ports.DesafioRepositoryPort;
+import br.com.bscpaz.desafio.domain.services.DesafioServicePort;
+import br.com.bscpaz.desafio.domain.services.impl.DesafioServicePortImpl;
 
 public class DesafioBuilder {
 
-    public static DesafioService getDesafioService(DesafioRepository desafioRepository) {
-        return new DesafioServiceImpl(desafioRepository);
+    public static DesafioServicePort getDesafioService(DesafioRepositoryPort desafioRepositoryPort) {
+        return new DesafioServicePortImpl(desafioRepositoryPort);
     }
 
-    public static DesafioOrchestrator getDesafioOrchestrator(DesafioRepository desafioRepository) {
-        DesafioService desafioService = getDesafioService(desafioRepository);
-        return new DesafioOrchestratorImpl(desafioService);
+    public static DesafioOrchestratorPort getDesafioOrchestrator(DesafioRepositoryPort desafioRepositoryPort) {
+        DesafioServicePort desafioServicePort = getDesafioService(desafioRepositoryPort);
+        return new DesafioOrchestratorPortImpl(desafioServicePort);
     }
 
 }

@@ -17,6 +17,20 @@ services:
     networks:
       - app-network
 
+  desafio-ms:
+    container_name: desafio_ms
+    build:
+      context: ./desafio-ms
+      dockerfile: Dockerfile
+    volumes:
+      - C:/Users/bscpaz/.m2:/root/.m2/repository
+    ports:
+      - "8082:80"
+    networks:
+      - app-network
+    depends_on:
+      - postgres
+
   desafio-front:
     container_name: desafio_front
     build:
@@ -27,7 +41,7 @@ services:
     networks:
       - app-network
     depends_on:
-      - postgres
+      - desafio-ms
 
 
   # postgres-poc:

@@ -1,5 +1,6 @@
 package br.com.bscpaz.desafio.adapters.primary.v1.http.dtos;
 
+import br.com.bscpaz.desafio.adapters.secundary.database.entities.DesafioEntity;
 import br.com.bscpaz.desafio.domain.entities.Desafio;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,6 +39,17 @@ public class DesafioDto {
 
     public static List<DesafioDto> domainsToDtos(List<Desafio> domains) {
         return domains.stream().map(item -> {
+            DesafioDto dto = new DesafioDto();
+            dto.setId(item.getId());
+            dto.setPergunta(item.getPergunta());
+            dto.setResposta(item.getResposta());
+            dto.setPalavrasChaves(item.getPalavrasChaves());
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+    public static List<DesafioDto> entitiesToDtos(List<DesafioEntity> entities) {
+        return entities.stream().map(item -> {
             DesafioDto dto = new DesafioDto();
             dto.setId(item.getId());
             dto.setPergunta(item.getPergunta());

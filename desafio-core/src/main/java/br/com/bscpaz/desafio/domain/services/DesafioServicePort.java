@@ -1,15 +1,13 @@
-package br.com.bscpaz.desafio.domain.ports;
-
+package br.com.bscpaz.desafio.domain.services;
 
 import br.com.bscpaz.desafio.domain.entities.Desafio;
 
 import java.util.List;
 
-public interface DesafioRepository {
+public interface DesafioServicePort {
 
     Desafio save(Desafio desafio);
 
-    List<Desafio> findAll();
-
     List<Desafio> findByPalavrasChave(String palavrasChave);
+
 }

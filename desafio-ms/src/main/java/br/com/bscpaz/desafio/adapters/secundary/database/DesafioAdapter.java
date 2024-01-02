@@ -1,15 +1,15 @@
 package br.com.bscpaz.desafio.adapters.secundary.database;
 
 import br.com.bscpaz.desafio.domain.entities.Desafio;
-import br.com.bscpaz.desafio.domain.ports.DesafioRepository;
 import br.com.bscpaz.desafio.adapters.secundary.database.entities.DesafioEntity;
+import br.com.bscpaz.desafio.domain.ports.DesafioRepositoryPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class DesafioAdapter implements DesafioRepository {
+public class DesafioAdapter implements DesafioRepositoryPort {
 
     @Autowired
     private DesafioJpaRepository desafioJpaRepository;
@@ -19,12 +19,6 @@ public class DesafioAdapter implements DesafioRepository {
         DesafioEntity desafioEntity = DesafioEntity.domainToEntity(desafio);
         desafioEntity = desafioJpaRepository.save(desafioEntity);
         return DesafioEntity.entityToDomain(desafioEntity);
-    }
-
-    @Override
-    public List<Desafio> findAll() {
-        List<DesafioEntity> desafiosEntities = desafioJpaRepository.findAll();
-        return DesafioEntity.entitiesToDomains(desafiosEntities);
     }
 
     @Override
